@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CareerBridge_SA - Gain Real Work Experience</title>
+
+    <!-- Bootstrap & Fonts -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- External CSS -->
+    <link rel="stylesheet" href="style.css" />
+  </head>
+
+  <body>
+    <!-- Animated Background -->
+    <div class="animated-bg"></div>
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg fixed-top">
+      <div class="container">
+        <a class="navbar-brand logo-container" href="#">
+          <img
+            src="careerbridge_logo.jpeg"
+            alt="CareerBridge_SA Logo"
+            class="logo"
+          />
+          <div>
+            <div class="logo-text">CAREERBRIDGE_SA</div>
+            <div class="logo-subtitle">Gain Real Work Experience</div>
+          </div>
+        </a>
+
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav me-auto">
+            <li class="nav-item">
+              <a class="nav-link active" href="#">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Simulations</a>
+            </li>
+            <li class="nav-item"><a class="nav-link" href="#">Employers</a></li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Success Stories</a>
+            </li>
+            <li class="nav-item"><a class="nav-link" href="#">About</a></li>
+          </ul>
+
+          <div class="d-flex align-items-center">
+            <button
+              class="btn btn-outline-light me-2"
+              data-bs-toggle="modal"
+              data-bs-target="#loginModal"
+            >
+              Sign In
+            </button>
+            <button
+              class="btn btn-primary"
+              data-bs-toggle="modal"
+              data-bs-target="#registerModal"
+            >
+              Register
+            </button>
+            <span class="data-save-toggle ms-3">
+              <i class="fas fa-network-wired"></i> Data Saver
+            </span>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-section text-center" id="home">
+      <div class="container hero-content">
+        <h1 class="display-4 fw-bold mb-4">
+          Gain Real Work Experience Without a Job
+        </h1>
+        <p class="lead mb-4">
+          Virtual simulations designed by South African companies to help
+          graduates build skills, confidence, and career pathways.
+        </p>
+        <div class="d-flex justify-content-center flex-wrap gap-2">
+          <button class="btn btn-primary btn-lg">Explore Simulations</button>
+          <button class="btn btn-outline-light btn-lg">For Employers</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="py-5 mt-5 text-center text-light">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-3 col-6 mb-4">
+            <h3 class="stat-number">63%</h3>
+            <p>Youth Unemployment in SA</p>
+          </div>
+          <div class="col-md-3 col-6 mb-4">
+            <h3 class="stat-number">5-7</h3>
+            <p>Hours per Simulation</p>
+          </div>
+          <div class="col-md-3 col-6 mb-4">
+            <h3 class="stat-number">100+</h3>
+            <p>Partner Companies</p>
+          </div>
+          <div class="col-md-3 col-6 mb-4">
+            <h3 class="stat-number">82%</h3>
+            <p>Completion Rate</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="text-center py-4">
+      <p>© 2025 CareerBridge_SA. All Rights Reserved.</p>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Register Modal -->
+<div
+  class="modal fade"
+  id="registerModal"
+  tabindex="-1"
+  aria-labelledby="registerModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="registerModalLabel">Create an Account</h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+
+      <div class="modal-body">
+        <form action="AdminPhp/register.php" method="POST">
+          <div class="mb-3">
+            <label for="fullname" class="form-label">Full Name</label>
+            <input
+              type="text"
+              class="form-control"
+              id="fullname"
+              name="fullname"
+              required
+            />
+          </div>
+
+          <div class="mb-3">
+            <label for="email" class="form-label">Email</label>
+            <input
+              type="email"
+              class="form-control"
+              id="email"
+              name="email"
+              required
+            />
+          </div>
+
+          <div class="mb-3">
+            <label for="password" class="form-label">Password</label>
+            <input
+              type="password"
+              class="form-control"
+              id="password"
+              name="password"
+              required
+            />
+          </div>
+
+          <button type="submit" class="btn btn-primary w-100">Register</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+  </body>
+</html>
