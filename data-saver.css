@@ -1,0 +1,56 @@
+/* Data saving mode styles */
+.data-save-mode .animated-bg,
+.data-save-mode .hero-section::before,
+.data-save-mode .category-badge {
+  animation: none !important;
+}
+
+.data-save-mode .simulation-card:hover {
+  transform: translateY(-5px);
+}
+
+.data-save-mode .simulation-card:hover .card-img-top {
+  transform: none;
+}
+
+.data-save-toggle {
+  cursor: pointer;
+  font-size: 0.9rem;
+  padding: 5px 10px;
+  background-color: #f8f9fa;
+  border-radius: 4px;
+  border: 1px solid #dee2e6;
+  transition: all 0.3s ease;
+  user-select: none;
+}
+
+.data-save-toggle:hover {
+  background-color: #e9ecef;
+}
+
+.data-save-toggle.active {
+  background-color: var(--primary);
+  color: white;
+  border-color: var(--primary);
+}
+
+/* Data saver specific optimizations */
+.data-save-mode img {
+  filter: grayscale(20%);
+}
+
+.data-save-mode .hero-section {
+  background: var(--primary) !important;
+}
+
+.data-save-mode .hero-section::before {
+  display: none;
+}
+
+/* Mobile optimizations for data saver */
+@media (max-width: 768px) {
+  .data-save-toggle {
+    font-size: 0.8rem;
+    padding: 4px 8px;
+  }
+}
