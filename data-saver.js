@@ -1,4 +1,3 @@
-// Data Saver functionality
 class DataSaver {
   constructor() {
     this.isActive = false;
@@ -11,7 +10,7 @@ class DataSaver {
     if (savedState === 'true') {
       this.enable();
     }
-    
+   
     // Add event listener for data saver toggle
     document.addEventListener('click', (e) => {
       if (e.target.closest('.data-save-toggle')) {
@@ -29,10 +28,10 @@ class DataSaver {
     }
     this.isActive = true;
     localStorage.setItem('careerBridgeDataSaver', 'true');
-    
+   
     // Show notification
     this.showNotification('Data saver mode activated - animations reduced');
-    
+   
     // Optimize images for data saving
     this.optimizeImages();
   }
@@ -46,10 +45,10 @@ class DataSaver {
     }
     this.isActive = false;
     localStorage.setItem('careerBridgeDataSaver', 'false');
-    
+   
     // Show notification
     this.showNotification('Data saver mode deactivated');
-    
+   
     // Restore images
     this.restoreImages();
   }
@@ -68,7 +67,7 @@ class DataSaver {
     images.forEach(img => {
       const originalSrc = img.getAttribute('data-original-src') || img.src;
       img.setAttribute('data-original-src', originalSrc);
-      
+     
       // If it's a data URL SVG, we can't optimize further
       if (!originalSrc.startsWith('data:')) {
         // In a real implementation, you would serve optimized images
@@ -105,18 +104,18 @@ class DataSaver {
   // Method to estimate data savings
   estimateSavings() {
     if (!this.isActive) return '0%';
-    
+   
     let savings = 0;
-    
+   
     // Animation savings
     savings += 15;
-    
+   
     // Image optimization savings (estimated)
     savings += 25;
-    
+   
     // Background animation savings
     savings += 10;
-    
+   
     return `${savings}% estimated data savings`;
   }
 }
@@ -129,15 +128,8 @@ function initDataSaver() {
   return dataSaver;
 }
 
-// Global toggle function for HTML onclick
-function toggleDataSaver() {
-  if (!dataSaver) {
-    dataSaver = new DataSaver();
-  }
-  dataSaver.toggle();
-}
-
-// Initialize when DOM is loaded
-document.addEventListener('DOMContentLoaded', function() {
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initDataSaver);
+} else {
   initDataSaver();
-});
+}
