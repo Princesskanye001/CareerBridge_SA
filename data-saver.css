@@ -1,56 +1,31 @@
-/* Data saving mode styles */
-.data-save-mode .animated-bg,
-.data-save-mode .hero-section::before,
-.data-save-mode .category-badge {
-  animation: none !important;
-}
-
-.data-save-mode .simulation-card:hover {
-  transform: translateY(-5px);
-}
-
-.data-save-mode .simulation-card:hover .card-img-top {
-  transform: none;
-}
-
 .data-save-toggle {
   cursor: pointer;
-  font-size: 0.9rem;
-  padding: 5px 10px;
-  background-color: #f8f9fa;
+  padding: 8px 12px;
+  border: 1px solid #ddd;
   border-radius: 4px;
-  border: 1px solid #dee2e6;
+  background: white;
   transition: all 0.3s ease;
-  user-select: none;
 }
 
 .data-save-toggle:hover {
-  background-color: #e9ecef;
+  background: #f5f5f5;
 }
 
 .data-save-toggle.active {
-  background-color: var(--primary);
+  background: #4CAF50;
   color: white;
-  border-color: var(--primary);
+  border-color: #4CAF50;
 }
 
-/* Data saver specific optimizations */
-.data-save-mode img {
-  filter: grayscale(20%);
+/* Data Saver Mode Styles */
+.data-save-mode {
+  /* Reduce animations */
+  animation-duration: 0.01ms !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: 0.01ms !important;
 }
 
-.data-save-mode .hero-section {
-  background: var(--primary) !important;
-}
-
-.data-save-mode .hero-section::before {
-  display: none;
-}
-
-/* Mobile optimizations for data saver */
-@media (max-width: 768px) {
-  .data-save-toggle {
-    font-size: 0.8rem;
-    padding: 4px 8px;
-  }
+.data-save-mode * {
+  animation: none !important;
+  transition: none !important;
 }
