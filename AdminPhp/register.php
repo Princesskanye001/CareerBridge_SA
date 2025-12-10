@@ -1,36 +1,48 @@
 <?php
+session_start();
+
 // Database connection
-$servername = "localhost";
-$username = "root";      // your database username
-$password = "";          // your database password
-$dbname = "careerbridge"; // your database name
+$conn = new mysqli("localhost", "root", "", "careerbridge");
 
-$conn = new mysqli($servername, $username, $password, $dbname);
-
-// Check connection
 if ($conn->connect_error) {
-  die("Connection failed: " . $conn->connect_error);
+    die("Connection failed: " . $conn->connect_error);
 }
 
-// Get form data
-$fullname = $_POST['fullname'];
-$email = $_POST['email'];
-$password = $_POST['password'];
+// Escape user inputs
+$email = $conn->real_escape_string($_POST["email"]);
+$password = $_POST["password"];
 
-// Hash the password for security
-$hashed_password = password_hash($password, PASSWORD_DEFAULT);
+// Check user
+$sql = "SELECT * FROM users WHERE email = '$email' LIMIT 1";
+$result = $conn->query($sql);
 
-// Insert into database
-$sql = "INSERT INTO users (fullname, email, password) VALUES (?, ?, ?)";
-$stmt = $conn->prepare($sql);
-$stmt->bind_param("sss", $fullname, $email, $hashed_password);
+// Check if user exists
+if ($result && $result->num_rows > 0) {
 
-if ($stmt->execute()) {
-  echo "<script>alert('Registration successful! You can now log in.'); window.location.href='../index.html';</script>";
-} else {
-  echo "<script>alert('Error: Could not register.'); window.history.back();</script>";
-}
+    $user = $result->fetch_assoc();
 
-$stmt->close();
+    // Verify hashed password
+    if (password_verify($password, $user["password"])) {
+
+        // Start session
+        $_SESSION["user_id"] = $user["id"];
+        $_SESSION["fullname"] = $user["fullname"];
+
+        // Redirect to dashboard
+        header("Location: ../simulation.html");
+        exit();
+
+    } else {
+            // Incorrect password
+            header("Location: ../index.html?error=incorrect_password");
+            exit();
+        }
+    } else {
+        // Email does not exist
+        header("Location: ../index.html?error=email_not_found");
+        exit();
+    }
+
+
 $conn->close();
 ?>
