@@ -199,6 +199,103 @@
     </div>
   </div>
 </div>
+<div id="errorMessage" style="
+    display:none;
+    background:#ffcccc;
+    color:#900;
+    padding:10px;
+    margin-bottom:15px;
+    border-radius:5px;
+    text-align:center;
+    font-weight:600;
+"></div>
+
+
+<!-- Login Modal -->
+<!-- Login Modal -->
+<div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="loginModalLabel">Sign In</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+
+      <div class="modal-body">
+
+        <!-- ERROR MESSAGE INSIDE MODAL -->
+        <div id="loginError" style="
+            display:none;
+            background:#ffcccc;
+            color:#900;
+            padding:10px;
+            margin-bottom:15px;
+            border-radius:5px;
+            text-align:center;
+            font-weight:600;
+        "></div>
+
+        <form action="AdminPhp/login.php" method="POST">
+          <div class="mb-3">
+            <label for="login_email" class="form-label">Email</label>
+            <input type="email" class="form-control" id="login_email" name="email" required />
+          </div>
+
+          <div class="mb-3">
+            <label for="login_password" class="form-label">Password</label>
+            <input type="password" class="form-control" id="login_password" name="password" required />
+          </div>
+
+          <button type="submit" class="btn btn-primary w-100">Sign In</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    const params = new URLSearchParams(window.location.search);
+
+    // If URL has ?showLogin=true → open login modal
+    if (params.get("showLogin") === "true") {
+        let loginModal = new bootstrap.Modal(document.getElementById("loginModal"));
+        loginModal.show();
+    }
+});
+</script>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    const params = new URLSearchParams(window.location.search);
+    
+    // Show login modal if success.php uses ?showLogin=true
+    if (params.get("showLogin") === "true") {
+        let loginModal = new bootstrap.Modal(document.getElementById("loginModal"));
+        loginModal.show();
+    }
+
+    // Handle login error messages
+    if (params.has("error")) {
+        const errorType = params.get("error");
+        const errorBox = document.getElementById("loginError");
+
+        if (errorType === "incorrect_password") {
+            errorBox.innerText = "Incorrect password!";
+        } else if (errorType === "email_not_found") {
+            errorBox.innerText = "No account found with that email!";
+        }
+
+        // Show error & open login modal
+        errorBox.style.display = "block";
+        let loginModal = new bootstrap.Modal(document.getElementById("loginModal"));
+        loginModal.show();
+
+        // Remove error from URL so refreshing doesn't show modal again
+        window.history.replaceState({}, document.title, "index.html");
+    }
+});
+</script>
 
   </body>
 </html>
