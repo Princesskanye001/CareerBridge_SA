@@ -1,48 +1,38 @@
 <?php
-session_start();
-
 // Database connection
-$conn = new mysqli("localhost", "root", "", "careerbridge");
+$servername = "localhost";
+$username = "root";      // your database username
+$password = "";          // your database password
+$dbname = "careerbridge"; // your database name
 
+$conn = new mysqli($servername, $username, $password, $dbname);
+
+// Check connection
 if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
+  die("Connection failed: " . $conn->connect_error);
 }
 
-// Escape user inputs
-$email = $conn->real_escape_string($_POST["email"]);
-$password = $_POST["password"];
+// Get form data
+$fullname = $_POST['fullname'];
+$email = $_POST['email'];
+$password = $_POST['password'];
 
-// Check user
-$sql = "SELECT * FROM users WHERE email = '$email' LIMIT 1";
-$result = $conn->query($sql);
+// Hash the password for security
+$hashed_password = password_hash($password, PASSWORD_DEFAULT);
 
-// Check if user exists
-if ($result && $result->num_rows > 0) {
+// Insert into database
+$sql = "INSERT INTO users (fullname, email, password) VALUES (?, ?, ?)";
+$stmt = $conn->prepare($sql);
+$stmt->bind_param("sss", $fullname, $email, $hashed_password);
 
-    $user = $result->fetch_assoc();
-
-    // Verify hashed password
-    if (password_verify($password, $user["password"])) {
-
-        // Start session
-        $_SESSION["user_id"] = $user["id"];
-        $_SESSION["fullname"] = $user["fullname"];
-
-        // Redirect to dashboard
-        header("Location: ../simulation.html");
-        exit();
-
-    } else {
-            // Incorrect password
-            header("Location: ../index.html?error=incorrect_password");
-            exit();
-        }
-    } else {
-        // Email does not exist
-        header("Location: ../index.html?error=email_not_found");
-        exit();
-    }
+if ($stmt->execute()) {
+    header("Location: ../success.php");
+    exit();
+} else {
+    echo "<script>alert('Error: Could not register.'); window.history.back();</script>";
+}
 
 
+$stmt->close();
 $conn->close();
 ?>
